@@ -116,7 +116,9 @@ class ChromaVectorStore(BaseVectorStore):
 
 class PgVectorStore(ChromaVectorStore):
     """Postgres pgvector extension implementation (subclassed fallback for local dev)."""
-    pass
+    def __init__(self) -> None:
+        super().__init__()
+        self.conn = PgVectorStore.connect(**settings.database_url)   
 
 def get_vector_store() -> BaseVectorStore:
     """Factory function returning configured vector store instance.
