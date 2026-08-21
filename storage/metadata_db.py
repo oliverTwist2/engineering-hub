@@ -35,19 +35,6 @@ def init_db() -> None:
     Returns: None.
     """
     conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS eval_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            query TEXT NOT NULL,
-            retrieved_chunks_json TEXT NOT NULL,
-            quality_score REAL NOT NULL,
-            final_answer TEXT NOT NULL,
-            citations_json TEXT NOT NULL,
-            created_at REAL NOT NULL
-        )
-    """)
-    conn.commit()
     conn.close()
 
 def log_evaluation(query: str, retrieved_chunks: List[Dict[str, Any]], quality_score: float, final_answer: str, citations: List[Dict[str, Any]]) -> int:
